@@ -4,6 +4,7 @@ import rtde_receive
 import rtde_io
 from ur5py.robotiq_gripper_control import RobotiqGripper
 from ur5py.socket_robotiq import SocketRobotiq
+from ur5py.continuous_state_robotiq_gripper import ContinuousStateRobotiqGripper
 import time
 import numpy as np
 import pdb
@@ -39,6 +40,9 @@ class UR5Robot:
             self.gripper = RobotiqGripper(self.ur_c)
         elif gripper == 2:
             self.gripper = SocketRobotiq(ip, gripper_port)
+        elif gripper == 3:
+            self.gripper = ContinuousStateRobotiqGripper()
+            self.gripper.connect(self.ip, 63352)
 
     def servo_joint(self, target, time=0.002, lookahead_time=0.1, gain=300):
         """
